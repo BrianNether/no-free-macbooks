@@ -127,6 +127,8 @@ class Bot(discord.Client):
             set_log_channel(None)
             await message.channel.send("Logging to Discord has been stopped.")
         if is_suspicious(message):
+            if message.content.startswith("!"): # Ignore commands
+                return
             log(f"Flagged message {message.id} from {message.author} as suspicious with score {get_suspiciousness(message):.2f}")
             author = message.author
             if is_trustworthy(author):
